@@ -50,6 +50,7 @@ jobs:
     #     gradle-version: '8.9'
   deploy:
     runs-on: ubuntu-latest
+    needs: build
 
     steps:
       - name: ssh pipelines
