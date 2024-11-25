@@ -53,18 +53,14 @@ jobs:
 
     steps:
       - name: ssh pipelines
-        uses: cross-the-world/ssh-pipeline@master
-        env:
-          WELCOME: "ssh pipeline"
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_IP }}
-          user: ${{ secrets.EC2_USERNAME }}
-          pass: ${{ secrets.EC2_SSH_KEY }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
           port: ${{ secrets.EC2_PORT }}
-          connect_timeout: 10s
           script: |
             git pull
             cd /home/ubuntu/clone/toy-web/toy/build/libs
             nohup java -jar demo-0.0.1-SNAPSHOT.jar &
-          # check
           
