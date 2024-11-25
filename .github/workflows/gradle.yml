@@ -59,6 +59,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    env :
+      working-directory: ./toy
 
     steps:
     - uses: actions/checkout@v4
