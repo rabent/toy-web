@@ -48,6 +48,22 @@ jobs:
     #   uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
     #   with:
     #     gradle-version: '8.9'
-    
-    # - name: Build with Gradle 8.9
-    #   run: gradle build
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ssh pipelines
+        uses: cross-the-world/ssh-pipeline@master
+        env:
+          WELCOME: "ssh pipeline"
+        with:
+          host: ${{ secrets.EC2_IP }}
+          user: ${{ secrets.EC2_USERNAME }}
+          pass: ${{ secrets.EC2_SSH_KEY }}
+          port: ${{ secrets.EC2_PORT }}
+          connect_timeout: 10s
+          script: |
+          git pull
+          cd /home/ubuntu/clone/toy-web/toy/build/libs
+          nohup java -jar demo-0.0.1-SNAPSHOT.jar &
+          
