@@ -42,7 +42,7 @@ jobs:
       run: ./gradlew build -x test
 
     - name: Upload JAR Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with: 
         name: DemoJAR
         path: toy/build/libs/demo-0.0.1-SNAPSHOT.jar
@@ -60,7 +60,7 @@ jobs:
 
     steps:
       - name: Download JAR Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with: 
           name: DemoJAR
           path: bulid/libs/
@@ -69,7 +69,7 @@ jobs:
         run: |
           echo "${{ secrets.EC2_SSH_KEY }}" > SSH_key.pem
           chmod 600 SSH_key.pem
-          scp -i SSH_key.pem -o StrictHostKeyChecking=no build/libs/demo-0.0.1-SNAPSHOT.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_IP }}:/home/${{ secrets.EC2_USERNAME }}/clone/toy-web/toy/build/libs/demo-0.0.1-SNAPSHOT.jar
+          scp -i SSH_key.pem build/libs/demo-0.0.1-SNAPSHOT.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_IP }}:/home/${{ secrets.EC2_USERNAME }}/clone/toy-web/toy/build/libs/demo-0.0.1-SNAPSHOT.jar
 
       - name: ssh pipelines
         uses: appleboy/ssh-action@master
