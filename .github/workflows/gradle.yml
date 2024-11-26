@@ -65,6 +65,10 @@ jobs:
           name: DemoJAR
           path: bulid/libs/
 
+      - name: Show structure of downloaded files
+        run: |
+          ls -alh build/libs/
+
       - name: Upload to EC2
         run: |
           echo "${{ secrets.EC2_SSH_KEY }}" > SSH_key.pem
