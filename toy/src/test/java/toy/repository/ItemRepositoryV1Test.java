@@ -1,6 +1,7 @@
 package toy.repository;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,18 +24,22 @@ class ItemRepositoryV1Test {
     @BeforeEach
     void before()  {
         testitem=new Item(1123L,"test1",123, LocalDate.now(),"fantasy,terrific");
-        Long tmp=itemRepository.save(testitem);
+    }
+
+    @AfterEach
+    void after() {
+        itemRepository.delete(1123L);
     }
 
     @Test
     void save() {
-        Item item=new Item(142L,"file",100, LocalDate.now(),"fantasy,terrific");
-        Long tmp=itemRepository.save(item);
-        assertThat(tmp).isEqualTo(142L);
+        Long tmp=itemRepository.save(testitem);
+        assertThat(tmp).isEqualTo(1123L);
     }
 
     @Test
     void findById() {
+        Long tmp=itemRepository.save(testitem);
         Item item=itemRepository.findById(1123L);
         assertThat(item).isEqualTo(testitem);
     }
@@ -50,6 +55,7 @@ class ItemRepositoryV1Test {
     void delete() {
         itemRepository.delete(1123L);
         assertThatThrownBy(()->itemRepository.findById(1123L)).isInstanceOf(Exception.class);
+        itemRepository.save(testitem);
     }
 
     @Test

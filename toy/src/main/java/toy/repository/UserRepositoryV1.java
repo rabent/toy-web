@@ -29,6 +29,12 @@ public class UserRepositoryV1 implements UserRepository{
     }
 
     @Override
+    public void delete(String id) {
+        String sql="delete from user_table where user_id=?";
+        jdbcTemplate.update(sql, id);
+    }
+
+    @Override
     public User update(String id, User updateParam) {
         String sql="update user_table set name=?, point=?, item_list=?, password=? where user_id=?";
         jdbcTemplate.update(sql, updateParam.getName(), updateParam.getPoint(), updateParam.getItems_str()

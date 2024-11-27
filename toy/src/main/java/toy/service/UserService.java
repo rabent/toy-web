@@ -32,6 +32,9 @@ public class UserService {
         else {
             return new UserDTO(user.getUser_id(),user.getPassword());
         }
+    }
 
+    public void user_expire(String user_id) {
+        userRepository.delete(user_id);
     }
 }

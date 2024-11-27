@@ -35,7 +35,7 @@ public class ItemRepositoryV1 implements ItemRepository{
 
     @Override
     public Item update(Long id, Item updateParam) {
-        String sql="update item set filename=?, point=?, date=?, tags_str=? where item_id=?";
+        String sql="update item set filename=?, point=?, upload_date=?, tags_str=? where item_id=?";
         jdbcTemplate.update(sql, updateParam.getFileName(), updateParam.getPoint(), updateParam.getDate()
                 , updateParam.getTags_str(), updateParam.getItem_id());
         updateParam.setItem_id(id);
@@ -59,7 +59,7 @@ public class ItemRepositoryV1 implements ItemRepository{
             Item item=new Item();
             item.setItem_id(rs.getLong("item_id"));
             item.setFileName(rs.getString("filename"));
-            item.setDate(rs.getDate("date").toLocalDate());
+            item.setDate(rs.getDate("upload_date").toLocalDate());
             item.setTags_str(rs.getString("tags_str"));
             item.setPoint(rs.getInt("point"));
             return item;

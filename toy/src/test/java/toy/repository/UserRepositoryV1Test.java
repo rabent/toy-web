@@ -1,6 +1,7 @@
 package toy.repository;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,11 @@ class UserRepositoryV1Test {
         updateUser=new User("idupdated","2q2e4w2q","rabent00");
     }
 
+    @AfterEach
+    void after() {
+        userRepository.delete(user.getUser_id());
+    }
+
     @Test
     void save() {
         String save = userRepository.save(user);
@@ -33,19 +39,19 @@ class UserRepositoryV1Test {
 
     @Test
     void findById() {
+        userRepository.save(user);
         User user1 = userRepository.findById(user.getUser_id());
         assertThat(user1).isEqualTo(user);
     }
 
     @Test
     void update() {
+        userRepository.save(user);
         User update = userRepository.update(user.getUser_id(), updateUser);
-        User user1 = userRepository.findById(user.getUser_id());
+        User user1 = userRepository.findById(updateUser.getUser_id());
         assertThat(user1.getUser_id()).isEqualTo(update.getUser_id());
         assertThat(user1.getName()).isEqualTo(update.getName());
         assertThat(user1.getPassword()).isEqualTo(update.getPassword());
         assertThat(user1.getItems_str()).isEqualTo(update.getItems_str());
     }
-
-
 }

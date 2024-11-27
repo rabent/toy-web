@@ -1,6 +1,7 @@
 package toy.service;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,11 @@ class UserServiceTest {
     @BeforeEach
     void beforeEach() {
         registerDTO=new UserRegisterDTO("id123123","1q2w3e4r","rabent");
+    }
+
+    @AfterEach
+    void after() {
+        userService.user_expire("id123123");
     }
 
     @Test
