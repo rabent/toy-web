@@ -27,6 +27,10 @@ public class ItemService {
         return all;
     }
 
+    public List<Item> itemPage(int curPage) {
+        return itemRepository.findPage(curPage);
+    }
+
     public Item item_view(Long id) {
         return itemRepository.findById(id);
     }

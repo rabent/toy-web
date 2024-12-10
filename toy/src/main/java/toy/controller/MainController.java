@@ -13,17 +13,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import toy.SessionConst;
 import toy.domain.ItemDTO;
+import toy.domain.ItemPage;
 import toy.domain.UserDTO;
 import toy.domain.UserRegisterDTO;
 import toy.file.FileStore;
-import toy.repository.ItemRepository;
-import toy.repository.UserRepository;
 import toy.service.ItemService;
 import toy.service.UserService;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -35,8 +32,15 @@ public class MainController {
     final MessageSource ms;
 
     @GetMapping
+    public String mainRedirect() {
+        return "redirect:/shop/1";
+    }
+
+    @GetMapping("/{pageNum}")
     public String mainView(@SessionAttribute(name = SessionConst.LOGIN_USER,required = false) UserDTO userDTO,
-                           Model model) {
+                           Model model, @PathVariable int pageNum) {
+        ItemPage itemPage=new ItemPage(itemService.itemPage(pageNum));
+        model.addAttribute("ItemPage",itemPage);
         if(userDTO==null) return "index";
         model.addAttribute("UserDTO",userDTO);
         return "login_index";
@@ -54,7 +58,7 @@ public class MainController {
         if(registered==null) {
             bindingResult.reject("exist_id",ms.getMessage("error.exist_id",null,null));
         }
-        return "redirect:/shop";
+        return "redirect:/shop/1";
     }
 
     @GetMapping("/login")
@@ -82,7 +86,7 @@ public class MainController {
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if(session!=null) session.invalidate();
-        return "redirect:/shop";
+        return "redirect:/shop/1";
     }
 
     @GetMapping("/mypage")
@@ -105,6 +109,6 @@ public class MainController {
     public String itemSave(@Valid @ModelAttribute ItemDTO itemDTO, @RequestParam MultipartFile file) throws IOException {
         String uuid=fileStore.fileUpload(file);
         itemService.save(itemDTO,uuid);
-        return "redirect:/shop";
+        return "redirect:/shop/1";
     }
 }

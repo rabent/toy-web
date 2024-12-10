@@ -10,4 +10,5 @@ public interface ItemRepository {
     public Item update(Long id, Item updateParam);
     public void delete(Long id);
     public List<Item> findAll();
+    public List<Item> findPage(int curPage);
 }

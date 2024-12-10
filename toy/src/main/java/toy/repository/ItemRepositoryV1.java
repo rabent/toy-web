@@ -53,6 +53,14 @@ public class ItemRepositoryV1 implements ItemRepository{
         String sql="select * from item";
         return jdbcTemplate.query(sql,ItemRowMapper());
     }
+    //list를 통해 대규모 데이터를 받아오는 것은 문제가 있음
+    //한 페이지씩 읽어오는 등의 새로운 방법 필요
+
+    @Override
+    public List<Item> findPage(int curPage) {
+        String sql="select * from item order by upload_date DESC LIMIT " + String.valueOf(8*(curPage-1)) + ",8";
+        return jdbcTemplate.query(sql,ItemRowMapper());
+    }
 
     RowMapper<Item> ItemRowMapper() {
         return ((rs, rowNum) -> {
