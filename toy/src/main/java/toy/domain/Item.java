@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Range;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -21,8 +22,7 @@ public class Item {
     @NotNull
     String fileName;
     @NotNull
-    @Min(0)
-    @Max(20000)
+    @Range(min=0, max=10000)
     int point;
     LocalDate date;
     List<String> tags;

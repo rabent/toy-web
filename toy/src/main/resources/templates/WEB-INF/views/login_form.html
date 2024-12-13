@@ -24,11 +24,18 @@
         </div>
 
         <!-- Login Form -->
-        <form th:action method="post">
-            <input type="text" id="user_id" th:field="${UserDTO.user_id}" class="fadeIn second" placeholder="login">
-            <input type="text" id="password" class="fadeIn third" th:field="${UserDTO.password}" placeholder="password">
+        <form th:action method="post" th:object="${UserDTO}">
+            <input type="text" id="user_id" th:field="*{user_id}" class="fadeIn second" placeholder="login">
+            <p th:if="${#fields.hasErrors('user_id')}" th:errors="*{user_id}">Incorrect ID</p>
+            <input type="text" id="password" class="fadeIn third" th:field="*{password}" placeholder="password">
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect Password</p>
             <input type="submit" class="fadeIn fourth" value="Log In">
+            <div th:if="${#fields.hasGlobalErrors()}">
+                <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+            </div>
         </form>
+
+
 
         <!-- Remind Passowrd -->
         <div id="formFooter">

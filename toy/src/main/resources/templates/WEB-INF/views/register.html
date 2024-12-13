@@ -24,10 +24,13 @@
         </div>
 
         <!-- Login Form -->
-        <form th:action method="post">
-            <input type="text" id="user_id" th:field="${RegisterDTO.user_id}" class="fadeIn second" placeholder="ID">
-            <input type="text" id="password" class="fadeIn third" th:field="${RegisterDTO.password}" placeholder="password">
-            <input type="text" id="name" class="fadeIn third" th:field="${RegisterDTO.name}" placeholder="nickname">
+        <form th:action method="post" th:object="${RegisterDTO}">
+            <input type="text" id="user_id" th:field="*{user_id}" class="fadeIn second" placeholder="ID">
+            <p th:if="${#fields.hasErrors('user_id')}" th:errors="*{user_id}">Incorrect ID</p>
+            <input type="text" id="password" class="fadeIn third" th:field="*{password}" placeholder="password">
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect Password</p>
+            <input type="text" id="name" class="fadeIn third" th:field="*{name}" placeholder="nickname">
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect Nickname</p>
             <input type="submit" class="fadeIn fourth" value="Register">
         </form>
 

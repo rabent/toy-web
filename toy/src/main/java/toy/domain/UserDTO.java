@@ -1,5 +1,6 @@
 package toy.domain;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
@@ -13,11 +14,11 @@ import java.util.stream.Stream;
 @Setter
 @EqualsAndHashCode
 public class UserDTO {
-    @NotNull
+    @NotBlank
     @Size(min=5, max=12)
     String user_id;
 
-    @NotNull
+    @NotBlank
     @Size(min=5, max=15)
     String password;
 

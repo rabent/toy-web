@@ -51,11 +51,14 @@
                     <div class="col-md-6">
                         <h1 class="display-5 fw-bolder">Upload your pic!</h1>
                         <div class="d-flex">
-                            <form th:action method="post" enctype="multipart/form-data">
+                            <form th:action method="post" enctype="multipart/form-data" th:object="${ItemDTO}">
                                 <ul>
-                                    <li>point<input type="text" th:field="${ItemDTO.point}"></li>
-                                    <li>tags<input type="text" th:field="${ItemDTO.tags_str}"></li>
-                                    <li>파일<input type="file" name="file" ></li>
+                                    <li>point<input type="text" th:field="*{point}">
+                                        <p th:if="${#fields.hasErrors('point')}" th:errors="*{point}">Incorrect Point</p></li>
+                                    <li>tags<input type="text" th:field="*{tags_str}">
+                                        <p th:if="${#fields.hasErrors('tags_str')}" th:errors="*{tags_str}">Incorrect Tags</p></li>
+                                    <li>파일<input type="file" name="file" >
+                                    </li>
                                 </ul>
                                 <input type="submit"/>
                             </form>

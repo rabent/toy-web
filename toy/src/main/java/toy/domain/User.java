@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Range;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -24,8 +25,7 @@ public class User {
     @NotNull
     @Size(min=5, max=12)
     String name;
-    @Max(1000000)
-    @Min(0)
+    @Range(min=0, max=10000000)
     int point=10000;
     List<Long> items;
     String items_str;

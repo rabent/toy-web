@@ -1,5 +1,6 @@
 package toy.domain;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
@@ -10,15 +11,15 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 public class UserRegisterDTO {
-    @NotNull
+    @NotBlank
     @Size(min=5, max=12)
     String user_id;
 
-    @NotNull
+    @NotBlank
     @Size(min=5, max=15)
     String password;
 
-    @NotNull
+    @NotBlank
     @Size(min=5, max=12)
     String name;
 
