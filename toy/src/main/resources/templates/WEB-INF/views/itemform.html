@@ -57,9 +57,12 @@
                                         <p th:if="${#fields.hasErrors('point')}" th:errors="*{point}">Incorrect Point</p></li>
                                     <li>tags<input type="text" th:field="*{tags_str}">
                                         <p th:if="${#fields.hasErrors('tags_str')}" th:errors="*{tags_str}">Incorrect Tags</p></li>
-                                    <li>파일<input type="file" name="file" >
+                                    <li>파일<input type="file" name="file" accept="image/png" >
                                     </li>
                                 </ul>
+                                <div th:if="${#fields.hasGlobalErrors()}">
+                                    <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+                                </div>
                                 <input type="submit"/>
                             </form>
                         </div>

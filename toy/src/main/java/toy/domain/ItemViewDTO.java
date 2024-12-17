@@ -1,33 +1,30 @@
 package toy.domain;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Stream;
-
 @Getter
 @Setter
-public class ItemDTO {
-    @NotBlank
+public class ItemViewDTO {
+    @NotNull
     @Range(min=0, max=10000)
     int point;
 
-    @NotBlank
+    @NotNull
     String tags_str;
 
-    public ItemDTO() {
+    @NotNull
+    String fileName;
+
+    public ItemViewDTO() {
     }
 
-    public ItemDTO(int point, String tags_str) {
+    public ItemViewDTO(int point, String tags_str, String fileName) {
         this.point = point;
         this.tags_str = tags_str;
+        this.fileName=fileName;
     }
 }

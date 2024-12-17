@@ -4,7 +4,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import toy.SessionConst;
-import toy.domain.ItemDTO;
+import toy.domain.ItemRegisterDTO;
 import toy.domain.ItemPage;
 import toy.domain.UserDTO;
 import toy.domain.UserRegisterDTO;
@@ -26,6 +27,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @RequestMapping("/shop")
 public class MainController {
+    private static final Logger log = LoggerFactory.getLogger(MainController.class);
     final ItemService itemService;
     final UserService userService;
     final FileStore fileStore;
@@ -54,6 +56,7 @@ public class MainController {
 
     @PostMapping("/register")
     public String register_post(@Valid @ModelAttribute UserRegisterDTO RegisterDTO, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) return "register";
         String registered = userService.register(RegisterDTO);
         if(registered==null) {
             bindingResult.reject("exist_id",ms.getMessage("error.exist_id",null,null));
@@ -101,14 +104,20 @@ public class MainController {
 
     @GetMapping("/itemform")
     public String itemForm(Model model) {
-        model.addAttribute("ItemDTO",new ItemDTO());
+        model.addAttribute("ItemDTO",new ItemRegisterDTO());
         return "itemform";
     }
 
     @PostMapping("/itemform")
-    public String itemSave(@Valid @ModelAttribute ItemDTO itemDTO, @RequestParam MultipartFile file) throws IOException {
+    public String itemSave(@Valid @ModelAttribute("ItemDTO") ItemRegisterDTO itemRegisterDTO, BindingResult bindingResult,
+                           @RequestParam MultipartFile file) throws IOException {
+        if(bindingResult.hasErrors()) return "itemform";
+        if(file.isEmpty()) {
+            bindingResult.reject("fileempty",ms.getMessage("NotBlank",new Object[]{"파일"},null));
+            return "itemform";
+        }
         String uuid=fileStore.fileUpload(file);
-        itemService.save(itemDTO,uuid);
+        itemService.save(itemRegisterDTO,uuid);
         return "redirect:/shop/1";
     }
 }
