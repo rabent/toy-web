@@ -29,17 +29,19 @@ public class ItemService {
         return all;
     }
 
+    public ItemViewDTO itemView(Long itemId) {
+        Item byId = itemRepository.findById(itemId);
+        ItemViewDTO dto=new ItemViewDTO(byId.getItem_id(),byId.getPoint(),byId.getTags_str(), byId.getFileName());
+        return dto;
+    }
+
     public List<ItemViewDTO> itemPage(int curPage) {
         List<Item> list=itemRepository.findPage(curPage);
         List<ItemViewDTO> retList=new ArrayList<ItemViewDTO>();
         for(Item item : list) {
-            ItemViewDTO dto=new ItemViewDTO(item.getPoint(),item.getTags_str(),item.getFileName());
+            ItemViewDTO dto=new ItemViewDTO(item.getItem_id(), item.getPoint(),item.getTags_str(),item.getFileName());
             retList.add(dto);
         }
         return retList;
-    }
-
-    public Item item_view(Long id) {
-        return itemRepository.findById(id);
     }
 }

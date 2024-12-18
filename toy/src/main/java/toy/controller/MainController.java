@@ -13,10 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import toy.SessionConst;
-import toy.domain.ItemRegisterDTO;
-import toy.domain.ItemPage;
-import toy.domain.UserDTO;
-import toy.domain.UserRegisterDTO;
+import toy.domain.*;
 import toy.file.FileStore;
 import toy.service.ItemService;
 import toy.service.UserService;
@@ -98,7 +95,9 @@ public class MainController {
     }
 
     @GetMapping("/items/{itemId}")
-    public String itemview(@PathVariable Long itemId) {
+    public String itemview(@PathVariable Long itemId, Model model) {
+        ItemViewDTO itemViewDTO = itemService.itemView(itemId);
+        model.addAttribute("ItemDTO", itemViewDTO);
         return "item";
     }
 
