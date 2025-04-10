@@ -58,7 +58,7 @@ public class MainController {
 
     @GetMapping("/register")
     public String register_get(Model model) {
-        model.addAttribute("RegisterDTO", new UserRegisterDTO());
+        model.addAttribute("userRegisterDTO", new UserRegisterDTO());
         return "register";
     }
 

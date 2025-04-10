@@ -24,7 +24,7 @@
         </div>
 
         <!-- Login Form -->
-        <form th:action method="post" th:object="${RegisterDTO}">
+        <form th:action method="post" th:object="${userRegisterDTO}">
             <input type="text" id="user_id" th:field="*{user_id}" class="fadeIn second" placeholder="ID">
             <p th:if="${#fields.hasErrors('user_id')}" th:errors="*{user_id}">Incorrect ID</p>
             <input type="text" id="password" class="fadeIn third" th:field="*{password}" placeholder="password">
