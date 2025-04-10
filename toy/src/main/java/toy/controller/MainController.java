@@ -130,4 +130,29 @@ public class MainController {
         itemService.save(itemRegisterDTO,uuid);
         return "redirect:/shop/1";
     }
+
+    @GetMapping("/items/{itemId}/update")
+    public String updateItemForm(@PathVariable Long itemId, Model model) {
+        ItemViewDTO itemViewDTO = itemService.itemView(itemId);
+        model.addAttribute("ItemDTO", itemViewDTO);
+        return "item_update";
+    }
+
+    @PostMapping("/items/{itemId}/update")
+    public String updateItem(@PathVariable Long itemId, 
+                           @Valid @ModelAttribute("ItemDTO") ItemRegisterDTO itemRegisterDTO, 
+                           BindingResult bindingResult,
+                           @RequestParam(required = false) MultipartFile file) throws IOException {
+        if(bindingResult.hasErrors()) {
+            return "item_update";
+        }
+
+        String uuid = null;
+        if (file != null && !file.isEmpty()) {
+            uuid = fileStore.fileUpload(file);
+        }
+
+        itemService.update(itemId, itemRegisterDTO, uuid);
+        return "redirect:/shop/items/" + itemId;
+    }
 }

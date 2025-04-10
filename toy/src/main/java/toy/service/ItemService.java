@@ -44,4 +44,21 @@ public class ItemService {
         }
         return retList;
     }
+
+    public void update(Long itemId, ItemRegisterDTO itemRegisterDTO, String uuid) {
+        Item existingItem = itemRepository.findById(itemId);
+        if (existingItem == null) {
+            throw new IllegalArgumentException("Item not found with id: " + itemId);
+        }
+
+        Item updateItem = new Item(
+            itemId,
+            uuid != null ? uuid : existingItem.getFileName(),
+            itemRegisterDTO.getPoint(),
+            existingItem.getDate(),
+            itemRegisterDTO.getTags_str()
+        );
+
+        itemRepository.update(itemId, updateItem);
+    }
 }

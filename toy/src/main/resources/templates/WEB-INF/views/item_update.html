@@ -5,13 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Shop Item - Start Bootstrap Template</title>
+        <title>Update Item - Start Bootstrap Template</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="/css/item.css" rel="stylesheet" />
+        <link href="/css/styles.css" rel="stylesheet" />
     </head>
     <body>
         <!-- Navigation-->
@@ -39,23 +39,31 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
                     <div class="col-md-6">
-                        <h1 class="display-5 fw-bolder">Upload your pic!</h1>
+                        <img class="card-img-top mb-5 mb-md-0" th:src="@{'/files/' + ${ItemDTO.fileName}}" alt="..." />
+                    </div>
+                    <div class="col-md-6">
+                        <h1 class="display-5 fw-bolder">Update your pic!</h1>
                         <div class="d-flex">
-                            <form th:action method="post" enctype="multipart/form-data" th:object="${ItemDTO}">
-                                <ul>
-                                    <li>point<input type="text" th:field="*{point}">
-                                        <p th:if="${#fields.hasErrors('point')}" th:errors="*{point}">Incorrect Point</p></li>
-                                    <li>tags<input type="text" th:field="*{tags_str}">
-                                        <p th:if="${#fields.hasErrors('tags_str')}" th:errors="*{tags_str}">Incorrect Tags</p></li>
-                                    <li>파일<input type="file" name="file" accept="image/png" >
-                                    </li>
-                                </ul>
-                                <div th:if="${#fields.hasGlobalErrors()}">
+                            <form th:action="@{/shop/items/{id}/update(id=${ItemDTO.id})}" method="post" enctype="multipart/form-data" th:object="${ItemDTO}">
+                                <div class="mb-3">
+                                    <label for="point" class="form-label">Point</label>
+                                    <input type="number" class="form-control" id="point" th:field="*{point}" required>
+                                    <p class="text-danger" th:if="${#fields.hasErrors('point')}" th:errors="*{point}">Incorrect Point</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tags" class="form-label">Tags</label>
+                                    <input type="text" class="form-control" id="tags" th:field="*{tags_str}" required>
+                                    <p class="text-danger" th:if="${#fields.hasErrors('tags_str')}" th:errors="*{tags_str}">Incorrect Tags</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="file" class="form-label">Image (Optional)</label>
+                                    <input type="file" class="form-control" id="file" name="file" accept="image/*">
+                                </div>
+                                <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger">
                                     <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
                                 </div>
-                                <input type="submit"/>
+                                <button type="submit" class="btn btn-primary">Update Item</button>
                             </form>
                         </div>
                     </div>
