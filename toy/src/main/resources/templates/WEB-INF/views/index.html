@@ -7,11 +7,11 @@
         <meta name="author" content="" />
         <title>Shop Homepage - Start Bootstrap Template</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" th:href="@{/static/assets/favicon.ico}" />
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="/css/styles.css" rel="stylesheet" />
+        <link th:href="@{/static/css/styles.css}" rel="stylesheet" />
     </head>
     <body>
         <!-- Navigation-->
@@ -53,7 +53,7 @@
                         <div class="card h-100">
                             <!-- Product image-->
                             <div>
-                            <img class="card-img-top" th:src="@{'/files/' + ${ItemPage.items[0].fileName}}" alt="..." />
+                            <img class="card-img-top" th:src="@{/files/__${ItemPage.items[0].fileName}__}" alt="..." />
                             </div>
                             <!-- Product details-->
                             <div class="card-body p-4">
@@ -74,7 +74,7 @@
                         <div class="card h-100">
                             <!-- Product image-->
                             <div>
-                                <img class="card-img-top" th:src="@{'/files/' + ${ItemPage.items[1].fileName}}" alt="..." />
+                                <img class="card-img-top" th:src="@{/files/__${ItemPage.items[1].fileName}__}" alt="..." />
                             </div>
                             <!-- Product details-->
                             <div class="card-body p-4">
@@ -97,7 +97,7 @@
                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                             <!-- Product image-->
                             <div>
-                                <img class="card-img-top" th:src="@{'/files/' + ${ItemPage.items[2].fileName}}" alt="..." />
+                                <img class="card-img-top" th:src="@{/files/__${ItemPage.items[2].fileName}__}" alt="..." />
                             </div>
                             <!-- Product details-->
                             <div class="card-body p-4">
@@ -118,7 +118,7 @@
                         <div class="card h-100">
                             <!-- Product image-->
                             <div>
-                                <img class="card-img-top" th:src="@{'/files/' + ${ItemPage.items[3].fileName}}" alt="..." />
+                                <img class="card-img-top" th:src="@{/files/__${ItemPage.items[3].fileName}__}" alt="..." />
                             </div>
                             <!-- Product details-->
                             <div class="card-body p-4">
@@ -141,7 +141,7 @@
                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                             <!-- Product image-->
                             <div>
-                                <img class="card-img-top" th:src="@{'/files/' + ${ItemPage.items[4].fileName}}" alt="..." />
+                                <img class="card-img-top" th:src="@{/files/__${ItemPage.items[4].fileName}__}" alt="..." />
                             </div>
                             <!-- Product details-->
                             <div class="card-body p-4">
@@ -162,7 +162,7 @@
                         <div class="card h-100">
                             <!-- Product image-->
                             <div>
-                                <img class="card-img-top" th:src="@{'/files/' + ${ItemPage.items[5].fileName}}" alt="..." />
+                                <img class="card-img-top" th:src="@{/files/__${ItemPage.items[5].fileName}__}" alt="..." />
                             </div>
                             <!-- Product details-->
                             <div class="card-body p-4">
@@ -185,7 +185,7 @@
                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                             <!-- Product image-->
                             <div>
-                                <img class="card-img-top" th:src="@{'/files/' + ${ItemPage.items[6].fileName}}" alt="..." />
+                                <img class="card-img-top" th:src="@{/files/__${ItemPage.items[6].fileName}__}" alt="..." />
                             </div>
                             <!-- Product details-->
                             <div class="card-body p-4">
@@ -206,7 +206,7 @@
                         <div class="card h-100">
                             <!-- Product image-->
                             <div>
-                                <img class="card-img-top" th:src="@{'/files/' + ${ItemPage.items[7].fileName}}" alt="..." />
+                                <img class="card-img-top" th:src="@{/files/__${ItemPage.items[7].fileName}__}" alt="..." />
                             </div>
                             <!-- Product details-->
                             <div class="card-body p-4">
@@ -241,6 +241,6 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+        <script th:src="@{/static/js/scripts.js}"></script>
     </body>
 </html>
